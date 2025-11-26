@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - WoolTech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <!--
+        Navigation bar (shared across pages)
+        - Responsive Bootstrap navbar with brand and links
+        - Cart badge is updated by scripts based on localStorage
+    -->
+    <nav class="navbar navbar-expand-md sticky-top bg-white border-bottom">
+        <div class="container-lg">
+            <h1 class="navbar-brand mb-0 fs-5 fw-bold text-gradient">WoolTech</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a href="index.html" class="nav-link text-dark fw-500">Home</a>
+                    <a href="products.html" class="nav-link text-dark fw-500">Products</a>
+                    <a href="cart.html" class="nav-link text-dark fw-500 position-relative">
+                        Cart
+                        <span id="cart-badge"
+                            class="cart-badge position-absolute top-0 start-100 translate-middle d-none">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <!--
+        Page header / intro for the Products page
+        - Contains a short description and page title
+    -->
+    <section class="pt-5 pb-3 bg-white">
+        <div class="container-lg">
+            <div class="text-center">
+                <h2 class="display-5 fw-bold text-dark mb-3">Our Collection</h2>
+                <p class="fs-5 text-secondary center-max-600">
+                    Discover our complete range of premium merino wool sneakers, designed for comfort, style, and
+                    sustainability.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <!--
+        Primary products area containing filters and product grid
+        - Left column: filters (search, categories, price, color, sort)
+        - Right column: products grid where JS loads items dynamically
+        - Uses Bootstrap grid and cards; product modal is used for product detail
+    -->
+    <section class="py-4">
+        <div class="container-lg">
+            <div class="row g-5">
+                <!-- Filters Sidebar -->
+                <div class="col-lg-3">
+                    <div class="card border-0 shadow sticky-top sticky-offset-100">
+                        <div class="card-body">
+                            <h3 class="card-title fw-bold mb-4">Filters</h3>
+
+                            <!-- Search -->
+                            <div class="mb-4">
+                                <label class="form-label small fw-500">Search</label>
+                                <input type="text" id="search-input" placeholder="Search products..."
+                                    class="form-control form-control-sm">
+                            </div>
+
+                            <!-- Categories -->
+                            <div class="mb-4">
+                                <label class="form-label small fw-500">Category</label>
+                                <div class="d-grid gap-2">
+                                    <button class="filter-btn btn btn-sm btn-light text-start active"
+                                        data-filter="all">All Products</button>
+                                    <button class="filter-btn btn btn-sm btn-light text-start"
+                                        data-filter="running">Running</button>
+                                    <button class="filter-btn btn btn-sm btn-light text-start"
+                                        data-filter="casual">Casual</button>
+                                    <button class="filter-btn btn btn-sm btn-light text-start"
+                                        data-filter="hiking">Hiking</button>
+                                </div>
+                            </div>
+
+                            <!-- Price Range -->
+                            <div class="mb-4">
+                                <label class="form-label small fw-500">Price Range</label>
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input price-filter" type="checkbox" id="price1"
+                                            data-min="0" data-max="150">
+                                        <label class="form-check-label small" for="price1">Under $150</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input price-filter" type="checkbox" id="price2"
+                                            data-min="150" data-max="200">
+                                        <label class="form-check-label small" for="price2">$150 - $200</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input price-filter" type="checkbox" id="price3"
+                                            data-min="200" data-max="1000">
+                                        <label class="form-check-label small" for="price3">Over $200</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Colors -->
+                            <div class="mb-4">
+                                <label class="form-label small fw-500">Color</label>
+                                <div class="row g-2">
+                                    <div class="col-3"><button
+                                            class="color-filter btn btn-sm rounded-circle swatch swatch--white"
+                                            data-color="white" title="White"></button></div>
+                                    <div class="col-3"><button
+                                            class="color-filter btn btn-sm rounded-circle swatch swatch--oat"
+                                            data-color="oat" title="Oat"></button></div>
+                                    <div class="col-3"><button
+                                            class="color-filter btn btn-sm rounded-circle swatch swatch--grey"
+                                            data-color="grey" title="Grey"></button></div>
+                                    <div class="col-3"><button
+                                            class="color-filter btn btn-sm rounded-circle swatch swatch--black"
+                                            data-color="black" title="Black"></button></div>
+                                    <div class="col-3"><button
+                                            class="color-filter btn btn-sm rounded-circle swatch swatch--sage"
+                                            data-color="sage" title="Sage"></button></div>
+                                    <div class="col-3"><button
+                                            class="color-filter btn btn-sm rounded-circle swatch swatch--navy"
+                                            data-color="navy" title="Navy"></button></div>
+                                    <div class="col-3"><button
+                                            class="color-filter btn btn-sm rounded-circle swatch swatch--lavender"
+                                            data-color="lavender" title="Lavender"></button></div>
+                                    <div class="col-3"><button
+                                            class="color-filter btn btn-sm rounded-circle swatch swatch--camel"
+                                            data-color="camel" title="Camel"></button></div>
+                                </div>
+                            </div>
+
+                            <!-- Sort -->
+                            <div class="mb-4">
+                                <label class="form-label small fw-500">Sort By</label>
+                                <select id="sort-select" class="form-select form-select-sm">
+                                    <option value="featured">Featured</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="name">Name A-Z</option>
+                                </select>
+                            </div>
+
+                            <button id="clear-filters" class="btn btn-outline-secondary btn-sm w-100">
+                                Clear All Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="col-lg-9">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <span id="product-count" class="text-secondary">Showing 12 products</span>
+                        <button id="mobile-filters-btn" class="btn btn-outline-secondary btn-sm d-lg-none">
+                            Filters
+                        </button>
+                    </div>
+
+                    <div id="products-grid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+
+                    <div id="no-products" class="text-center py-5 d-none">
+                        <div class="text-secondary mb-3">
+                            <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="fs-5 fw-semibold text-secondary mb-2">No products found</h3>
+                        <p class="text-secondary">Try adjusting your filters or search terms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Modal -->
+    <!--
+        Modal template used by JavaScript to show product details
+        - #modal-body is populated dynamically when user clicks a product
+        - Uses Bootstrap modal for accessibility and responsive behavior
+    -->
+    <div id="product-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div id="modal-body">
+                    <!-- Modal content will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <!--
+        Shared footer (identical across app pages)
+        - Contains brand information and site copyright
+    -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container-lg">
+            <div class="text-center">
+                <h4 class="fs-4 fw-bold mb-3">WoolTech</h4>
+                <p class="text-secondary mb-4">Natural Wool Meets Urban Tech</p>
+                <div class="border-top border-secondary pt-4">
+                    <p class="text-secondary">&copy; 2024 WoolTech. All rights reserved. Crafted with natural materials
+                        and sustainable practices.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

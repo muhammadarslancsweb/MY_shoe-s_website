@@ -1,0 +1,598 @@
+/*
+    WoolTech - Combined stylesheet (styles.css)
+
+    Purpose:
+    - Centralized CSS for the site after migration from Tailwind to Bootstrap 5
+    - Contains custom visual styles, helper utilities and animations that Bootstrap
+        doesn't provide (or that are brand-specific)
+
+    Notes:
+    - Keep this file organized (global, buttons, pages, utilities, responsive)
+    - Animations and small utilities are preserved here to maintain visual polish
+*/
+
+:root {
+    --warm-white: #FEFCF8;
+    --oat: #F5F1E8;
+    --mist-grey: #E8E2D5;
+    --sage: #A8A090;
+    --charcoal: #2C2B28;
+    --soft-cream: #F9F6F0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--warm-white) 0%, var(--oat) 100%);
+    color: var(--charcoal);
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+/* Text Gradient */
+.text-gradient {
+    background: linear-gradient(135deg, var(--charcoal) 0%, var(--sage) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Cart Badge */
+.cart-badge {
+    background: var(--sage);
+    color: var(--warm-white);
+    font-size: 0.75rem;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* Fade In Animation */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   BUTTONS - BOOTSTRAP OVERRIDES
+   ============================================ */
+
+/* Primary Button */
+.btn-primary {
+    background: linear-gradient(135deg, var(--sage) 0%, var(--charcoal) 100%);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(168, 160, 144, 0.3);
+    background: linear-gradient(135deg, var(--sage) 0%, var(--charcoal) 100%);
+    color: white;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(168, 160, 144, 0.25);
+    background: linear-gradient(135deg, var(--sage) 0%, var(--charcoal) 100%);
+}
+
+/* Secondary Button */
+.btn-secondary {
+    background: white;
+    color: var(--charcoal);
+    border: 2px solid var(--mist-grey);
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    border-color: var(--sage);
+    background: var(--soft-cream);
+    color: var(--charcoal);
+}
+
+.btn-secondary:focus {
+    box-shadow: 0 0 0 0.25rem rgba(232, 226, 213, 0.5);
+}
+
+/* Filter Button */
+.filter-btn {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+}
+
+.filter-btn.active {
+    background: var(--sage);
+    color: white;
+}
+
+/* Quantity Button */
+.quantity-btn {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--mist-grey);
+    background: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.quantity-btn:hover {
+    background: var(--soft-cream);
+    border-color: var(--sage);
+}
+
+/* ============================================
+   CARDS & HOVER EFFECTS
+   ============================================ */
+
+/* Legacy alias for older markup that used `card-hover`.
+   New component class is `.product-card` (preferred). */
+.card-hover { transition: transform 0.25s ease; }
+
+/* ============================================
+   HOME PAGE STYLES
+   ============================================ */
+
+/* Hero Background */
+.hero-bg {
+    background: linear-gradient(135deg, var(--warm-white) 0%, var(--oat) 50%, var(--mist-grey) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('resources/wool-texture-bg.jpg') center/cover;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* ============================================
+   COMPONENTS - Minimal component-first classes
+   - These component classes replace many small utility classes in HTML
+   - Use for grouping and structure so individual tags don't need multiple classes
+============================================ */
+
+/* Site navigation wrapper (keeps Bootstrap behavior but reduces per-element classes) */
+.site-nav {
+    background: rgba(255,255,255,0.95);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Hero / landing component */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+.hero__content { max-width: 1200px; margin: 0 auto; }
+.hero__actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* Featured cards container */
+.featured { padding: 2rem 0; }
+.product-grid { display: grid; gap: 1.25rem; }
+
+/* Product card component */
+.product-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.product-card { position: relative; }
+.product-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
+
+.product-image { height: 250px; object-fit: cover; width: 100%; display:block; }
+.product-card__body { padding: 1.25rem; }
+.product-card__title { font-weight: 600; margin-bottom: .5rem; }
+.product-card__price { font-size: 1.25rem; font-weight: 700; }
+
+/* Overlay and CTA inside product card */
+.product-overlay { position: absolute; inset: 0; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0); transition: background 0.3s; }
+.product-overlay .btn { opacity: 0; transition: opacity 0.25s; }
+.product-card:hover .product-overlay { background: rgba(0,0,0,0.12); }
+.product-card:hover .product-overlay .btn { opacity: 1; }
+
+/* Filters container */
+.filters { padding: 1rem; }
+.filters__list { display: grid; gap: .5rem; }
+
+/* Cart page */
+.cart-page { padding: 1rem 0; }
+.cart-item { display:flex; gap: 1rem; padding: .75rem; border-radius: .75rem; border: 1px solid rgba(0,0,0,0.06); align-items:center; }
+.cart-item__img { width: 80px; height: 80px; object-fit: cover; border-radius: .5rem; }
+.cart-item__controls { display:flex; align-items:center; gap: .5rem; }
+.cart-item__quantity { width: 2rem; text-align: center; font-weight: 600; }
+.cart-item__price { font-weight: 700; font-size: 1.125rem; }
+.cart-item .btn-link.text-danger { padding: 0; }
+
+.cart-item__meta { flex: 1; }
+.cart-item__right { text-align:right; margin-left: 1rem; }
+.cart-item__title { margin-bottom: .25rem; font-weight: 600; }
+.order-summary { padding: 1rem; }
+
+/* ============================================
+    UTILITY HELPERS (replacements for inline styles)
+    - Small helper classes used across pages to keep HTML clean
+    - Examples: center-max-*, card-img-cover, overlay and swatches
+============================================ */
+.center-max-500 {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.center-max-600 {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.center-max-900 {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.center-max-800 { max-width: 800px; margin: 0 auto; }
+
+.card-img-cover {
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.overlay-bg {
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.3s;
+}
+
+.transition-opacity {
+    transition: opacity 0.3s;
+}
+
+.color-dot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid #ddd;
+}
+
+.color-dot--white {
+    background: #f5f5f5;
+}
+
+.color-dot--oat {
+    background: #fef3c7;
+}
+
+.color-dot--grey {
+    background: #e5e5e5;
+}
+
+.color-dot--black {
+    background: #1f2937;
+}
+
+.color-dot--d5 {
+    background: #d5d5d5;
+}
+
+.color-dot--9ca3af {
+    background: #9ca3af;
+}
+
+.color-dot--4b5563 {
+    background: #4b5563;
+}
+
+/* ============================================
+   COLOR SWATCH UTILS
+   - Small square/round swatches used in product filters and color lists
+   - Use classes like .swatch--oat for specific colors
+============================================ */
+
+.swatch {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.swatch--white {
+    background: #f5f5f5;
+}
+
+.swatch--oat {
+    background: #fef3c7;
+}
+
+.swatch--grey {
+    background: #e5e5e5;
+}
+
+.swatch--black {
+    background: #1f2937;
+}
+
+.swatch--sage {
+    background: #dcfce7;
+}
+
+.swatch--navy {
+    background: #dbeafe;
+}
+
+.swatch--lavender {
+    background: #e9d5ff;
+}
+
+.swatch--camel {
+    background: #fee2e2;
+}
+
+.swatch--forest { background: #bbf7d0; }
+.swatch--brown { background: #fef3c7; }
+
+.icon-lg {
+    width: 64px;
+    height: 64px;
+}
+
+.icon-md {
+    width: 40px;
+    height: 40px;
+}
+
+.icon-sm {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-xl {
+    width: 80px;
+    height: 80px;
+}
+
+.sticky-offset-100 {
+    top: 100px;
+}
+
+.success-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Floating Animation */
+.floating-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Brand Timeline */
+.brand-timeline {
+    position: relative;
+}
+
+.brand-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--sage), var(--mist-grey));
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 1rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--sage);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+/* ============================================
+   PRODUCTS PAGE STYLES
+   ============================================ */
+
+/* Price Range */
+.price-range {
+    background: linear-gradient(to right, var(--sage), var(--mist-grey));
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* ============================================
+   CART PAGE STYLES
+   ============================================ */
+
+/* Cart Item */
+.cart-item {
+    transition: all 0.3s ease;
+}
+
+.cart-item.removing {
+    opacity: 0;
+    transform: translateX(-100px);
+}
+
+/* Form Input */
+.form-input {
+    border: 2px solid var(--mist-grey);
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-input:focus {
+    border-color: var(--sage);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(168, 160, 144, 0.1);
+}
+
+/* Error Message */
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.error-message.d-none {
+    display: none;
+}
+
+/* Success Message */
+.success-message {
+    color: #10b981;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Success Animation */
+.success-animation {
+    animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   NAVBAR CUSTOMIZATION
+   ============================================ */
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--charcoal) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--sage) !important;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .brand-timeline::before {
+        left: 0;
+    }
+
+    .timeline-dot {
+        left: 0;
+    }
+
+    .modal-content {
+        max-width: 95%;
+    }
+
+    .container-lg {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Temporary toast feedback used for add-to-cart confirmation */
+.toast-feedback {
+    position: fixed;
+    top: 1.25rem;
+    right: 1rem;
+    background: #10b981; /* green */
+    color: white;
+    padding: .75rem 1rem;
+    border-radius: .5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    z-index: 1050;
+    transform: translateX(120%);
+    transition: transform 0.35s ease;
+}
+.toast-feedback.show { transform: translateX(0); }

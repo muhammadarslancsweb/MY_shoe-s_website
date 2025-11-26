@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WoolTech - Natural Wool Meets Urban Tech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <!--
+        Navigation bar
+        - Uses Bootstrap navbar for responsive behavior
+        - Shows links to Home, Products and Cart
+        - Cart badge is populated dynamically by JavaScript
+    -->
+    <nav class="navbar navbar-expand-md sticky-top bg-white border-bottom">
+        <div class="container-lg">
+            <h1 class="navbar-brand mb-0 fs-5 fw-bold text-gradient">WoolTech</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a href="index.html" class="nav-link text-dark fw-500">Home</a>
+                    <a href="products.html" class="nav-link text-dark fw-500">Products</a>
+                    <a href="cart.html" class="nav-link text-dark fw-500 position-relative">
+                        Cart
+                        <span id="cart-badge" class="cart-badge position-absolute top-0 start-100 translate-middle d-none">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <!--
+        Hero: the main landing section with brand headline and CTA buttons
+        - Visuals include a textured background and a floating product image
+        - Buttons navigate to products page or scroll to the brand story
+    -->
+    <section class="hero-bg min-vh-100 d-flex align-items-center pt-5">
+        <div class="hero-content container-lg">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="mb-5">
+                        <h2 class="display-4 fw-bold lh-1">
+                            <span class="text-gradient">Natural Wool</span><br>
+                            <span class="text-dark">Meets Urban Tech</span>
+                        </h2>
+                        <p class="fs-5 text-secondary mt-4 lh-lg center-max-500">
+                            Experience the perfect fusion of nature's finest material and contemporary design. 
+                            Our merino wool sneakers offer unparalleled comfort, breathability, and sustainable luxury.
+                        </p>
+                    </div>
+                    <div class="d-flex flex-column flex-sm-row gap-3">
+                        <button onclick="window.location.href='products.html'" class="btn btn-primary btn-lg rounded-pill fw-semibold">
+                            Explore Collection
+                        </button>
+                        <button onclick="scrollToSection('brand-story')" class="btn btn-outline-secondary btn-lg rounded-pill fw-semibold">
+                            Our Story
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="floating-animation">
+                        <img src="resources/hero-wool-sneakers.jpg" alt="Premium Wool Sneakers" class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <!--
+        A small featured-products grid showing 3 highlighted items
+        - Each card contains an image, title, short description and price
+        - "Add to Cart" button triggers the JS addToCart() function
+        - Color indicators are decorative and reflect available product colors
+    -->
+    <section class="py-5 bg-white">
+        <div class="container-lg">
+                <div class="text-center mb-5 fade-in">
+                <h3 class="display-5 fw-bold mb-3">Featured Collection</h3>
+                <p class="fs-5 text-secondary center-max-600">
+                    Discover our premium selection of merino wool sneakers, crafted for the modern urban lifestyle.
+                </p>
+            </div>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-md-6 col-lg-4">
+                    <div class="product-card">
+                        <div class="position-relative overflow-hidden">
+                            <img src="resources/product-1.jpg" alt="Urban Wool Runner" class="product-image">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center overlay-bg">
+                                <button onclick="addToCart('urban-wool-runner', 'Urban Wool Runner', 149, 'resources/product-1.jpg')" class="btn btn-light btn-sm rounded-pill fw-semibold opacity-0 position-absolute transition-opacity">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <h4 class="product-card__title">Urban Wool Runner</h4>
+                            <p class="text-secondary">Premium merino wool meets urban sophistication</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold">$149</span>
+                                <div class="d-flex gap-1">
+                                    <div class="rounded-circle border color-dot color-dot--white"></div>
+                                    <div class="rounded-circle border color-dot color-dot--oat"></div>
+                                    <div class="rounded-circle border color-dot color-dot--grey"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="product-card">
+                        <div class="position-relative overflow-hidden">
+                            <img src="resources/product-2.jpg" alt="Oat Wool Classic" class="product-image">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center overlay-bg">
+                                <button onclick="addToCart('oat-wool-classic', 'Oat Wool Classic', 159, 'resources/product-2.jpg')" class="btn btn-light btn-sm rounded-pill fw-semibold opacity-0 position-absolute transition-opacity">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <h4 class="product-card__title">Oat Wool Classic</h4>
+                            <p class="text-secondary">Timeless design with natural comfort</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold">$159</span>
+                                <div class="d-flex gap-1">
+                                    <div class="rounded-circle border color-dot color-dot--oat"></div>
+                                    <div class="rounded-circle border color-dot color-dot--grey"></div>
+                                    <div class="rounded-circle border color-dot color-dot--black"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="product-card">
+                        <div class="position-relative overflow-hidden">
+                            <img src="resources/product-3.jpg" alt="Mist Grey Minimal" class="product-image">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center overlay-bg">
+                                <button onclick="addToCart('mist-grey-minimal', 'Mist Grey Minimal', 139, 'resources/product-3.jpg')" class="btn btn-light btn-sm rounded-pill fw-semibold opacity-0 position-absolute transition-opacity">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-card__body">
+                            <h4 class="product-card__title">Mist Grey Minimal</h4>
+                            <p class="text-secondary">Clean aesthetics with superior comfort</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-4 fw-bold">$139</span>
+                                <div class="d-flex gap-1">
+                                    <div class="rounded-circle border color-dot color-dot--d5"></div>
+                                    <div class="rounded-circle border color-dot color-dot--9ca3af"></div>
+                                    <div class="rounded-circle border color-dot color-dot--4b5563"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="window.location.href='products.html'" class="btn btn-primary btn-lg rounded-pill fw-semibold">
+                    View All Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Story -->
+    <!--
+        Narrative section (timeline) describing company milestones
+        - Uses images and alternating layout to make the timeline engaging
+    -->
+    <section id="brand-story" class="py-5 bg-light">
+        <div class="container-lg">
+            <div class="text-center mb-5 fade-in">
+                <h3 class="display-5 fw-bold mb-3">Our Story</h3>
+                <p class="fs-5 text-secondary center-max-600">
+                    Where traditional craftsmanship meets modern innovation, creating the future of sustainable footwear.
+                </p>
+            </div>
+
+            <div class="brand-timeline center-max-900">
+                <div class="timeline-item fade-in mb-5">
+                    <div class="row align-items-center g-4">
+                        <div class="col-md-6 text-md-end">
+                            <h4 class="fs-5 fw-bold mb-3">2018: The Beginning</h4>
+                            <p class="text-secondary">
+                                Founded with a vision to revolutionize footwear by combining nature's finest material—merino wool—with contemporary urban design.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="resources/brand-story.jpg" alt="Craftsmanship" class="img-fluid rounded-4 card-img-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in mb-5">
+                    <div class="row align-items-center g-4">
+                        <div class="col-md-6 order-md-last text-md-end">
+                            <h4 class="fs-5 fw-bold mb-3">2025: Innovation</h4>
+                            <p class="text-secondary">
+                                Pioneered advanced wool processing techniques that enhance natural properties while maintaining sustainability and comfort.
+                            </p>
+                        </div>
+                        <div class="col-md-6 order-md-first">
+                            <img src="resources/lifestyle-1.jpg" alt="Innovation" class="img-fluid rounded-4 card-img-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="row align-items-center g-4">
+                        <div class="col-md-6 text-md-end">
+                            <h4 class="fs-5 fw-bold mb-3">Today: Sustainability</h4>
+                            <p class="text-secondary">
+                                Leading the industry in sustainable practices, from regenerative wool sourcing to carbon-neutral manufacturing processes.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="resources/lifestyle-2.jpg" alt="Sustainability" class="img-fluid rounded-4 card-img-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <!--
+        Email subscription form
+        - Minimal form: email input and Subscribe button
+        - JS handles submission and shows feedback in #newsletter-message
+    -->
+    <section class="py-5 bg-white">
+        <div class="container center-max-800">
+            <div class="text-center fade-in">
+                <h3 class="display-6 fw-bold mb-3">Stay Connected</h3>
+                <p class="fs-5 text-secondary mb-4">
+                    Be the first to know about new products, sustainable innovations, and exclusive offers.
+                </p>
+                <form id="newsletter-form" class="d-flex flex-column flex-sm-row gap-3 justify-content-center center-max-500">
+                    <input 
+                        type="email" 
+                        id="email"  placeholder="Enter your email" class="form-control rounded-pill"
+                        required
+                    >
+                    <button type="submit" class="btn btn-primary rounded-pill fw-semibold">
+                        Subscribe
+                    </button>
+                </form>
+                <div id="newsletter-message" class="mt-3 small d-none"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!--
+        Site footer with brand information and copyright
+    -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container-lg">
+            <div class="text-center">
+                <h4 class="fs-4 fw-bold mb-3">WoolTech</h4>
+                <p class="text-secondary mb-4">Natural Wool Meets Urban Tech</p>
+                <div class="border-top border-secondary pt-4">
+                    <p class="text-secondary">&copy; 2024 WoolTech. All rights reserved. Crafted with natural materials and sustainable practices.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

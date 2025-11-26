@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - WoolTech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <!--
+        Navigation bar: shared across the site
+        - Responsive Bootstrap navbar
+        - Cart badge updated by scripts
+    -->
+    <nav class="navbar navbar-expand-md sticky-top bg-white border-bottom">
+        <div class="container-lg">
+            <h1 class="navbar-brand mb-0 fs-5 fw-bold text-gradient">WoolTech</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a href="index.html" class="nav-link text-dark fw-500">Home</a>
+                    <a href="products.html" class="nav-link text-dark fw-500">Products</a>
+                    <a href="cart.html" class="nav-link text-dark fw-500 position-relative">
+                        Cart
+                        <span id="cart-badge" class="cart-badge position-absolute top-0 start-100 translate-middle d-none">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <!--
+        Page header for the shopping cart
+        - Gives users context and instructions on this page
+    -->
+    <section class="pt-5 pb-3 bg-white">
+        <div class="container-lg">
+            <div class="text-center">
+                <h2 class="display-5 fw-bold text-dark mb-3">Shopping Cart</h2>
+                <p class="fs-5 text-secondary">
+                    Review your selected items and proceed to checkout
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Content -->
+    <!--
+        Main cart area
+        - Left: list of items (dynamically rendered into #cart-items)
+        - Right: order summary (subtotal, shipping, taxes, total) and CTA buttons
+        - Empty state is handled with #empty-cart which is displayed when cart is empty
+    -->
+    <section class="py-4">
+        <div class="container-lg">
+            <div class="row g-5">
+                <!-- Cart Items -->
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow">
+                        <div class="card-body">
+                            <h3 class="card-title fs-4 fw-bold mb-4">Your Items</h3>
+                            
+                            <div id="cart-items" class="d-flex flex-column gap-4">
+                                <!-- Cart items will be dynamically loaded here -->
+                            </div>
+                            
+                            <div id="empty-cart" class="text-center py-5 d-none">
+                                <div class="text-secondary mb-3">
+                                    <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v5a2 2 0 11-4 0v-5m4 0V8a2 2 0 10-4 0v5"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="fs-5 fw-semibold text-secondary mb-2">Your cart is empty</h3>
+                                <p class="text-secondary mb-4">Discover our premium wool sneakers collection</p>
+                                <button onclick="window.location.href='products.html'" class="btn btn-primary rounded-pill fw-semibold">
+                                    Shop Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow sticky-top sticky-offset-100">
+                        <div class="card-body">
+                            <h3 class="card-title fs-4 fw-bold mb-4">Order Summary</h3>
+                            
+                            <div class="d-flex flex-column gap-3 mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <span>Subtotal:</span>
+                                    <span id="subtotal">$0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Shipping:</span>
+                                    <span id="shipping">$0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Tax:</span>
+                                    <span id="tax">$0.00</span>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between fs-5 fw-bold">
+                                    <span>Total:</span>
+                                    <span id="total">$0.00</span>
+                                </div>
+                            </div>
+
+                            <button id="checkout-btn" class="btn btn-primary w-100 rounded-pill fw-semibold py-2 mb-3" disabled>
+                                Proceed to Checkout
+                            </button>
+                            
+                            <button onclick="window.location.href='products.html'" class="btn btn-secondary w-100 rounded-pill fw-semibold py-2">
+                                Continue Shopping
+                            </button>
+
+                            <!-- Trust Badges -->
+                            <div class="mt-5 pt-4 border-top">
+                                <h5 class="fw-semibold mb-3">Why Choose WoolTech?</h5>
+                                <div class="d-flex flex-column gap-2 small text-secondary">
+                                    <div class="d-flex align-items-center">
+                                        <svg class="icon-sm text-success me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        Free shipping on orders over $100
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <svg class="icon-sm text-success me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        30-day return guarantee
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <svg class="icon-sm text-success me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        Sustainable materials
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <svg class="icon-sm text-success me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        Carbon neutral shipping
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Modal -->
+    <!--
+        Checkout form modal
+        - Form is validated by JS before completing order
+        - Fields: name, email, address, card info, etc. The modal updates the order total #modal-total
+    -->
+    <div id="checkout-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fw-bold">Checkout</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" id="close-modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="checkout-form" class="d-flex flex-column gap-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-500">First Name</label>
+                                <input type="text" id="firstName" class="form-input form-control rounded-3" required>
+                                <div id="firstName-error" class="error-message d-none"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-500">Last Name</label>
+                                <input type="text" id="lastName" class="form-input form-control rounded-3" required>
+                                <div id="lastName-error" class="error-message d-none"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="form-label small fw-500">Email</label>
+                            <input type="email" id="email" class="form-input form-control rounded-3" required>
+                            <div id="email-error" class="error-message d-none"></div>
+                        </div>
+
+                        <div>
+                            <label class="form-label small fw-500">Address</label>
+                            <input type="text" id="address" class="form-input form-control rounded-3" required>
+                            <div id="address-error" class="error-message d-none"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-500">City</label>
+                                <input type="text" id="city" class="form-input form-control rounded-3" required>
+                                <div id="city-error" class="error-message d-none"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-500">State</label>
+                                <input type="text" id="state" class="form-input form-control rounded-3" required>
+                                <div id="state-error" class="error-message d-none"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-500">ZIP</label>
+                                <input type="text" id="zip" class="form-input form-control rounded-3" required>
+                                <div id="zip-error" class="error-message d-none"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="form-label small fw-500">Card Number</label>
+                            <input type="text" id="cardNumber" class="form-input form-control rounded-3" placeholder="1234 5678 9012 3456" required>
+                            <div id="cardNumber-error" class="error-message d-none"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label small fw-500">Expiry</label>
+                                <input type="text" id="expiry" class="form-input form-control rounded-3" placeholder="MM/YY" required>
+                                <div id="expiry-error" class="error-message d-none"></div>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-500">CVV</label>
+                                <input type="text" id="cvv" class="form-input form-control rounded-3" placeholder="123" required>
+                                <div id="cvv-error" class="error-message d-none"></div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="d-flex justify-content-between fs-5 fw-bold mb-3">
+                            <span>Total:</span>
+                            <span id="modal-total">$0.00</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-pill fw-semibold py-2">
+                            Complete Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <!--
+        Small modal shown after an order completes successfully
+        - Uses success animations and confirms order placement to the user
+    -->
+    <div id="success-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+                <div class="modal-body py-5">
+                        <div class="success-animation">
+                        <div class="bg-success bg-opacity-10 rounded-circle p-4 mb-3 success-circle">
+                            <svg class="icon-md text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h3 class="fw-bold fs-5 mb-3">Order Confirmed!</h3>
+                        <p class="text-secondary mb-4">Thank you for your purchase. Your order has been successfully placed.</p>
+                        <div class="d-flex flex-column gap-2">
+                            <button onclick="window.location.href='index.html'" class="btn btn-primary rounded-pill fw-semibold">
+                                Continue Shopping
+                            </button>
+                            <button id="close-success-modal" class="btn btn-secondary rounded-pill fw-semibold" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <!--
+        Shared footer (site-wide)
+    -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container-lg">
+            <div class="text-center">
+                <h4 class="fs-4 fw-bold mb-3">WoolTech</h4>
+                <p class="text-secondary mb-4">Natural Wool Meets Urban Tech</p>
+                <div class="border-top border-secondary pt-4">
+                    <p class="text-secondary">&copy; 2024 WoolTech. All rights reserved. Crafted with natural materials and sustainable practices.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
